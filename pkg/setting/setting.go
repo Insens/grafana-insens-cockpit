@@ -175,6 +175,10 @@ var (
 	GrafanaComUrl string
 
 	ImageUploadProvider string
+
+	// Insens
+	AddHelpMenuToBottomNav bool
+	AppTitle               string
 )
 
 // AddChangePasswordLink returns if login form is disabled or not since
@@ -1029,6 +1033,10 @@ func (cfg *Cfg) Load(args CommandLineArgs) error {
 		Name:    dbName,
 		ConnStr: connStr,
 	}
+
+	// Insens Backend config options
+	AddHelpMenuToBottomNav = iniFile.Section("insens").Key("add_help_menu_to_nav").MustBool(true)
+	AppTitle = iniFile.Section("insens").Key("app_title").MustString("Grafana")
 
 	geomapSection := iniFile.Section("geomap")
 	basemapJSON := valueAsString(geomapSection, "default_baselayer_config", "")

@@ -19,6 +19,8 @@ import { locationService } from '@grafana/runtime';
 import { toggleKioskMode } from 'app/core/navigation/kiosk';
 import { getDashboardSrv } from '../../services/DashboardSrv';
 
+const InsensConfig = require('insens_config.json');
+
 const mapDispatchToProps = {
   updateTimeZoneForSession,
 };
@@ -108,14 +110,14 @@ class DashNav extends PureComponent<Props> {
 
   renderLeftActionsButton() {
     const { dashboard, kioskMode } = this.props;
-    const { canStar, canShare, isStarred } = dashboard.meta;
+    const { isStarred, canStar, canShare, canEdit } = dashboard.meta;
     const buttons: ReactNode[] = [];
 
     if (kioskMode !== KioskMode.Off || this.isPlaylistRunning()) {
       return [];
     }
 
-    if (canStar) {
+    if (canEdit || (canStar && InsensConfig.dashboard.can_star)) {
       let desc = isStarred ? 'Unmark as favorite' : 'Mark as favorite';
       buttons.push(
         <DashNavButton
@@ -129,7 +131,7 @@ class DashNav extends PureComponent<Props> {
       );
     }
 
-    if (canShare) {
+    if (canEdit || (canShare && InsensConfig.dashboard.can_share)) {
       let desc = 'Share dashboard or panel';
       buttons.push(
         <ModalsController key="button-share">

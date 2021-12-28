@@ -41,7 +41,7 @@ RUN make build-go
 # Final stage
 FROM alpine:3.14.3
 
-LABEL maintainer="Grafana team <hello@grafana.com>"
+LABEL maintainer="Insens team <contact@insens.eu>"
 
 ARG GF_UID="472"
 ARG GF_GID="0"

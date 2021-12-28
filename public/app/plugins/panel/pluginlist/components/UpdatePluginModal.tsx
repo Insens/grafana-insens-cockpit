@@ -3,6 +3,8 @@ import { Modal, stylesFactory, useStyles } from '@grafana/ui';
 import { GrafanaTheme } from '@grafana/data';
 import { css } from '@emotion/css';
 
+const InsensConfig = require('insens_config.json');
+
 interface Props {
   pluginName: string;
   pluginID: string;
@@ -26,7 +28,7 @@ export function UpdatePluginModal({ pluginName, pluginID, onDismiss }: Props) {
         </span>
       </div>
       <p className={styles.updateAllTip}>
-        <img className={styles.inlineLogo} src="public/img/grafana_icon.svg" />
+        <img className={styles.inlineLogo} src={InsensConfig.brand.logo} />
         <strong>Pro tip</strong>: To update all plugins at once, type{' '}
         <code className={styles.codeSmall}>grafana-cli plugins update-all</code> on the command line.
       </p>

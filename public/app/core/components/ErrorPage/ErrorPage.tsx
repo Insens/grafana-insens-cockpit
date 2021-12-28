@@ -7,6 +7,8 @@ import Page from '../Page/Page';
 import { getNavModel } from 'app/core/selectors/navModel';
 import { StoreState } from 'app/types';
 
+const InsensConfig = require('insens_config.json');
+
 interface ConnectedProps {
   navModel: NavModel;
 }
@@ -62,13 +64,7 @@ export class ErrorPage extends PureComponent<Props> {
                         </a>{' '}
                         and try again.
                       </p>
-                      <p>
-                        If the error persists, seek help on the{' '}
-                        <a href="https://community.grafana.com" target="_blank" rel="noreferrer" className="error-link">
-                          community site
-                        </a>
-                        .
-                      </p>
+                      <p> {InsensConfig.error_help}</p>
                     </div>
                   </div>
                 </div>

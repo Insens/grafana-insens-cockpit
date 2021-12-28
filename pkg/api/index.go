@@ -211,7 +211,7 @@ func (hs *HTTPServer) getNavTree(c *models.ReqContext, hasEditPerm bool) ([]*dto
 	_, uaIsDisabledForOrg := hs.Cfg.UnifiedAlerting.DisabledOrgs[c.OrgId]
 	uaVisibleForOrg := hs.Cfg.UnifiedAlerting.IsEnabled() && !uaIsDisabledForOrg
 
-	if setting.AlertingEnabled != nil && *setting.AlertingEnabled || uaVisibleForOrg {
+	if setting.AlertingEnabled != nil && c.OrgRole == models.ROLE_ADMIN && *setting.AlertingEnabled || uaVisibleForOrg {
 		alertChildNavs := hs.buildAlertNavLinks(c, uaVisibleForOrg)
 		navTree = append(navTree, &dtos.NavLink{
 			Text:       "Alerting",
@@ -346,21 +346,23 @@ func (hs *HTTPServer) getNavTree(c *models.ReqContext, hasEditPerm bool) ([]*dto
 		navTree = append(navTree, serverAdminNode)
 	}
 
-	helpVersion := fmt.Sprintf(`%s v%s (%s)`, setting.ApplicationName, setting.BuildVersion, setting.BuildCommit)
-	if hs.Cfg.AnonymousHideVersion && !c.IsSignedIn {
-		helpVersion = setting.ApplicationName
-	}
+	if setting.AddHelpMenuToBottomNav {
+		helpVersion := fmt.Sprintf(`%s v%s (%s)`, setting.ApplicationName, setting.BuildVersion, setting.BuildCommit)
+		if hs.Cfg.AnonymousHideVersion && !c.IsSignedIn {
+			helpVersion = setting.ApplicationName
+		}
 
-	navTree = append(navTree, &dtos.NavLink{
-		Text:       "Help",
-		SubTitle:   helpVersion,
-		Id:         "help",
-		Url:        "#",
-		Icon:       "question-circle",
-		SortWeight: dtos.WeightHelp,
-		Section:    dtos.NavSectionConfig,
-		Children:   []*dtos.NavLink{},
-	})
+		navTree = append(navTree, &dtos.NavLink{
+			Text:       "Help",
+			SubTitle:   helpVersion,
+			Id:         "help",
+			Url:        "#",
+			Icon:       "question-circle",
+			SortWeight: dtos.WeightHelp,
+			Section:    dtos.NavSectionConfig,
+			Children:   []*dtos.NavLink{},
+		})
+	}
 
 	return navTree, nil
 }
@@ -593,14 +595,14 @@ func (hs *HTTPServer) setIndexViewData(c *models.ReqContext) (*dtos.IndexViewDat
 		NewGrafanaVersionExists: hs.updateChecker.GrafanaUpdateAvailable(),
 		AppName:                 setting.ApplicationName,
 		AppNameBodyClass:        getAppNameBodyClass(hs.License.HasValidLicense()),
-		FavIcon:                 "public/img/fav32.png",
+		FavIcon:                 "public/img/insens/Favicon.png",
 		AppleTouchIcon:          "public/img/apple-touch-icon.png",
-		AppTitle:                "Grafana",
+		AppTitle:                setting.AppTitle,
 		NavTree:                 navTree,
 		Sentry:                  &hs.Cfg.Sentry,
 		Nonce:                   c.RequestNonce,
 		ContentDeliveryURL:      hs.Cfg.GetContentDeliveryURL(hs.License.ContentDeliveryPrefix()),
-		LoadingLogo:             "public/img/grafana_icon.svg",
+		LoadingLogo:             "public/img/insens/logo_insens.png",
 	}
 
 	if hs.Cfg.FeatureToggles["accesscontrol"] {

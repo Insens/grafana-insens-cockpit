@@ -3,6 +3,7 @@ import { stylesFactory, useTheme } from '@grafana/ui';
 import { css } from '@emotion/css';
 import { GrafanaTheme } from '@grafana/data';
 
+const InsensConfig = require('insens_config.json');
 const title = { fontWeight: 500, fontSize: '26px', lineHeight: '123%' };
 
 const getStyles = stylesFactory((theme: GrafanaTheme) => {
@@ -55,8 +56,8 @@ export const LicenseChrome: React.FC<Props> = ({ header, editionNotice, subheade
           }}
         >
           <img
-            src="public/img/grafana_icon.svg"
-            alt="Grafana"
+            src={InsensConfig.logo}
+            alt={InsensConfig.logo_alt}
             width="80px"
             style={{ position: 'absolute', left: '23px', top: '20px' }}
           />

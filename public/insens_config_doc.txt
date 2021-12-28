@@ -1,0 +1,47 @@
+"app_title" = Application title displayed in the browser tab
+"welcome_title" = Title displayed on the home page
+
+"error" = Message displayed on error
+"error_help" = Help message displayed on error
+
+"login"
+  "title" = Title displayed on the login page
+  "slogans" = Slogans displayed on the login page. One is randomly picked and displayed.
+
+  "background_dark" = Background image displayed on the login page, when using dark theme.
+  "background_light" = Background image displayed on the login page, when using light theme.
+
+"brand"
+  "logo" = Insens logo displayed in the navbar
+  "logo_alt" = Insens logo html-alt description
+
+  "gradient_primary_color" = Primary color of the gradient
+  "gradient_secondary_color" = Secondary color of the gradient
+
+"side_menu"
+  "background_color" = Background color of the side-menu
+  "logo_background_color" = Background color of the logo inside the side-menu
+
+  "item_hover_color" = Color of the side-menu hovered item's title
+  "logo_hover_color" = Color of the logo hovered in the side-menu
+
+"home_page"
+  "help_options" = Table of items that will be displayed on the home page
+
+"rss"
+  "feed_url" = URL of the RSS feed to display on the home page
+  "use_proxy" = Should the Cockpit use the proxy to display the RSS feed?
+
+"dashboard"
+  "can_star" = Should users be able to "star" dashboards?
+  "can_share" = Should users be able to share dashboards?
+
+"edit"
+  "panel_json" = Should users have access to the JSON date linked to a dashboard?
+  "share" = Should users be able to share a dashboard?
+  "more" = Should users have access to dashboards' "more" options?
+
+"time_range_picker"
+  "display_time_picker_viewer" = Should users have access to dashboards' time range picker?
+
+"playlist_display_learn_more" = Should users see the 'learn more' button linking to Grafana help on the playlists page?

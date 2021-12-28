@@ -1,0 +1,60 @@
+{
+  "app_title": "Insens",
+  "welcome_title": "Welcome to Insens Cockpit",
+
+  "error": "Please try reloading the page.",
+  "error_help": "If the error persists, contact an Insens administrator.",
+
+  "login": {
+    "title": "Welcome to Insens Cockpit",
+    "slogans": ["Your customized cockpit according to your needs provided by Insens."],
+
+    "use_default_background": true,
+    "login_form_box_color": "rgba(46, 49, 49, 0.56)",
+
+    "background_dark": "public/img/insens/font.jpg",
+    "background_light": "public/img/insens/font.jpg"
+  },
+
+  "brand": {
+    "logo": "public/img/insens/logo_insens.png",
+    "logo_alt": "Insens logo",
+
+    "gradient_primary_color": "#FBCA0A",
+    "gradient_secondary_color": "#F05A28"
+  },
+
+  "side_menu": {
+    "background_color": "#004688",
+    "logo_background_color": "#004688",
+
+    "item_hover_color": "#004688",
+    "logo_hover_color": "#004688"
+  },
+
+  "home_page": {
+    "help_options": [{ "value": 0, "label": "Contact us", "href": "https://insens.eu/en/contact/" }]
+  },
+
+  "rss": {
+    "feed_url": "https://insens.eu/en/newsletter/feed/",
+    "use_proxy": false
+  },
+
+  "dashboard": {
+    "can_star": false,
+    "can_share": false
+  },
+
+  "edit": {
+    "panel_json": false,
+    "share": false,
+    "more": false
+  },
+
+  "time_range_picker": {
+    "display_time_picker": true
+  },
+
+  "playlists_display_learn_more": false
+}

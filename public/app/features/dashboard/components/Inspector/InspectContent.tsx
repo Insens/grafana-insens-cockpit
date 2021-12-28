@@ -15,6 +15,8 @@ import { DashboardModel, PanelModel } from '../../state';
 import { GetDataOptions } from '../../../query/state/PanelQueryRunner';
 import { InspectActionsTab } from './PanelInspectActions';
 
+const InsensConfig = require('insens_config.json');
+
 interface Props {
   dashboard: DashboardModel;
   panel: PanelModel;
@@ -45,6 +47,7 @@ export const InspectContent: React.FC<Props> = ({
   onClose,
 }) => {
   const [currentTab, setCurrentTab] = useState(defaultTab ?? InspectTab.Data);
+  const { canEdit } = dashboard.meta;
 
   if (!plugin) {
     return null;
@@ -91,10 +94,12 @@ export const InspectContent: React.FC<Props> = ({
             <InspectMetadataTab data={data} metadataDatasource={metadataDatasource} />
           )}
 
-          {activeTab === InspectTab.JSON && (
+          {(canEdit || InsensConfig.edit.panel_json) && activeTab === InspectTab.JSON && (
             <InspectJSONTab panel={panel} dashboard={dashboard} data={data} onClose={onClose} />
           )}
-          {activeTab === InspectTab.Error && <InspectErrorTab error={error} />}
+          {(canEdit || InsensConfig.edit.panel_json) && activeTab === InspectTab.Error && (
+            <InspectErrorTab error={error} />
+          )}
           {data && activeTab === InspectTab.Stats && <InspectStatsTab data={data} timeZone={dashboard.getTimezone()} />}
           {data && activeTab === InspectTab.Query && (
             <QueryInspector panel={panel} data={data.series} onRefreshQuery={() => panel.refresh()} />

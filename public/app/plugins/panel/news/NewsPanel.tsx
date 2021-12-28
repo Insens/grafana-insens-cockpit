@@ -8,6 +8,8 @@ import config from 'app/core/config';
 import { feedToDataFrame } from './utils';
 import { loadRSSFeed } from './rss';
 
+const InsensConfig = require('insens_config.json');
+
 // Types
 import { PanelProps, DataFrameView, dateTimeFormat, GrafanaTheme2, textUtil } from '@grafana/data';
 import { NewsItem } from './types';
@@ -48,12 +50,11 @@ export class NewsPanel extends PureComponent<Props, State> {
   }
 
   async loadChannel() {
-    const { options } = this.props;
     try {
-      const url = options.feedUrl
-        ? options.useProxy
-          ? `${PROXY_PREFIX}${options.feedUrl}`
-          : options.feedUrl
+      const url = InsensConfig.rss.feed_url
+        ? InsensConfig.rss.use_proxy
+          ? `${PROXY_PREFIX}${InsensConfig.rss.feed_url}`
+          : InsensConfig.rss.feed_url
         : DEFAULT_FEED_URL;
       const res = await loadRSSFeed(url);
       const frame = feedToDataFrame(res);
@@ -141,10 +142,7 @@ const getStyles = stylesFactory((theme: GrafanaTheme2) => ({
   itemWide: css`
     flex-direction: row;
   `,
-  body: css`
-    display: flex;
-    flex-direction: column;
-  `,
+  body: css``,
   socialImage: css`
     display: flex;
     align-items: center;
@@ -172,6 +170,7 @@ const getStyles = stylesFactory((theme: GrafanaTheme2) => ({
     }
   `,
   title: css`
+    max-width: calc(100% - 70px);
     font-size: 16px;
     margin-bottom: ${theme.spacing(0.5)};
   `,

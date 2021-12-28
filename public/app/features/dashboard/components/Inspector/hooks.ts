@@ -7,6 +7,8 @@ import { supportsDataQuery } from '../PanelEditor/utils';
 import { InspectTab } from 'app/features/inspector/types';
 import { PanelInspectActionSupplier } from './PanelInspectActions';
 
+const InsensConfig = require('insens_config.json');
+
 /**
  * Given PanelData return first data source supporting metadata inspector
  */
@@ -52,7 +54,9 @@ export const useInspectTabs = (
       tabs.push({ label: 'Meta Data', value: InspectTab.Meta });
     }
 
-    tabs.push({ label: 'JSON', value: InspectTab.JSON });
+    if (dashboard.meta.canEdit || InsensConfig.edit.panel_json) {
+      tabs.push({ label: 'JSON', value: InspectTab.JSON });
+    }
 
     if (error && error.message) {
       tabs.push({ label: 'Error', value: InspectTab.Error });
