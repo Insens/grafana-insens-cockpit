@@ -104,12 +104,13 @@ export function getNavBarItemWithoutMenuStyles(theme: GrafanaTheme2, isActive?: 
         transition: none;
       }
     `,
+    // Insens remove logo borders
     icon: css`
       height: 100%;
       width: 100%;
 
       img {
-        border-radius: 50%;
+        border-radius: 20%;
         height: ${theme.spacing(3)};
         width: ${theme.spacing(3)};
       }

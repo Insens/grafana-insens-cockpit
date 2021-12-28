@@ -64,20 +64,25 @@ export function NavBarItemMenuItem({ item, state, onNavigate }: NavBarItemMenuIt
 
 function getStyles(theme: GrafanaTheme2, isFocused: boolean, isSection: boolean) {
   let backgroundColor = 'transparent';
-  if (isFocused) {
+  // Does not seem to do shit
+  let textColor = theme.colors.text.primary;
+  if (isSection) {
+    // Insens coloring of menu item header background
+    backgroundColor = '#004688';
+    textColor = '#e2e2e2';
+  } else if (isFocused) {
     backgroundColor = theme.colors.action.hover;
-  } else if (isSection) {
-    backgroundColor = theme.colors.background.secondary;
   }
+
   return {
     menuItem: css`
       background-color: ${backgroundColor};
-      color: ${theme.colors.text.primary};
+      color: ${textColor};
 
       &:focus-visible {
-        background-color: ${theme.colors.action.hover};
+        background-color: ${backgroundColor};
         box-shadow: none;
-        color: ${theme.colors.text.primary};
+        color: ${textColor};
         outline: 2px solid ${theme.colors.primary.main};
         outline-offset: -2px;
         transition: none;

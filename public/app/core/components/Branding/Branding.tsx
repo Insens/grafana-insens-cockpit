@@ -44,7 +44,7 @@ const LoginBackground: FC<BrandComponentProps> = ({ className, children }) => {
 };
 
 const MenuLogo: FC<BrandComponentProps> = ({ className }) => {
-  return <img className={className} src={InsensConfig.brand.logo} alt={InsensConfig.brand.logo_alt} />;
+  return <img className={className} src={InsensConfig.brand.logo_fav} alt={InsensConfig.brand.logo_alt} />;
 };
 
 const LoginBoxBackground = () => {

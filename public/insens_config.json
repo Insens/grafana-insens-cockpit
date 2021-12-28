@@ -19,6 +19,7 @@
   "brand": {
     "logo": "public/img/insens/logo_insens.png",
     "logo_alt": "Insens logo",
+    "logo_fav": "public/img/insens/Favicon.png",
 
     "gradient_primary_color": "#FBCA0A",
     "gradient_secondary_color": "#F05A28"
