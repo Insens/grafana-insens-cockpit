@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Button, stylesFactory } from '@grafana/ui';
 import { css } from '@emotion/css';
 import { useUrlParams } from 'app/core/navigation/hooks';
+const InsensConfig = require('insens_config.json');
 
 const getStyles = stylesFactory(() => {
   return css`
@@ -26,7 +27,7 @@ export const ErrorLoadingChunk: FunctionComponent<Props> = ({ error }) => {
     <div className={getStyles()}>
       <h2>Unable to find application file</h2>
       <br />
-      <h2 className="page-heading">Grafana has likely been updated. Please try reloading the page.</h2>
+      <h2 className="page-heading">{InsensConfig.error}</h2>
       <br />
       <div className="gf-form-group">
         <Button size="md" variant="secondary" icon="repeat" onClick={() => window.location.reload()}>

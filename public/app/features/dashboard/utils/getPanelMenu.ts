@@ -19,6 +19,8 @@ import { getTimeSrv } from '../services/TimeSrv';
 import { PanelCtrl } from 'app/angular/panel/panel_ctrl';
 import config from 'app/core/config';
 
+const InsensConfig = require('insens_config.json');
+
 export function getPanelMenu(
   dashboard: DashboardModel,
   panel: PanelModel,
@@ -106,12 +108,14 @@ export function getPanelMenu(
     });
   }
 
-  menu.push({
-    text: 'Share',
-    iconClassName: 'share-alt',
-    onClick: onSharePanel,
-    shortcut: 'p s',
-  });
+  if (dashboard.canEditPanel(panel) || InsensConfig.edit.panel_json) {
+    menu.push({
+      text: 'Share',
+      iconClassName: 'share-alt',
+      onClick: onSharePanel,
+      shortcut: 'p s',
+    });
+  }
 
   if (contextSrv.hasAccessToExplore() && !(panel.plugin && panel.plugin.meta.skipDataQuery)) {
     menu.push({
@@ -139,10 +143,12 @@ export function getPanelMenu(
     }
   }
 
-  inspectMenu.push({
-    text: 'Panel JSON',
-    onClick: (e: React.MouseEvent<any>) => onInspectPanel('json'),
-  });
+  if (dashboard.canEditPanel(panel) || InsensConfig.edit.panel_json) {
+    inspectMenu.push({
+      text: 'Panel JSON',
+      onClick: (e: React.MouseEvent<any>) => onInspectPanel('json'),
+    });
+  }
 
   menu.push({
     type: 'submenu',
@@ -203,14 +209,16 @@ export function getPanelMenu(
     }
   }
 
-  if (!panel.isEditing && subMenu.length) {
-    menu.push({
-      type: 'submenu',
-      text: 'More...',
-      iconClassName: 'cube',
-      subMenu,
-      onClick: onMore,
-    });
+  if (dashboard.canEditPanel(panel) || InsensConfig.edit.more) {
+    if (!panel.isEditing && subMenu.length) {
+      menu.push({
+        type: 'submenu',
+        text: 'More...',
+        iconClassName: 'cube',
+        subMenu,
+        onClick: onMore,
+      });
+    }
   }
 
   if (dashboard.canEditPanel(panel) && !panel.isEditing && !panel.isViewing) {

@@ -11,6 +11,8 @@ import { InspectStatsTab } from 'app/features/inspector/InspectStatsTab';
 import { InspectDataTab } from 'app/features/inspector/InspectDataTab';
 import { InspectErrorTab } from 'app/features/inspector/InspectErrorTab';
 
+const InsensConfig = require('insens_config.json');
+
 interface DispatchProps {
   width: number;
   exploreId: ExploreId;
@@ -30,13 +32,6 @@ export function ExploreQueryInspector(props: Props) {
     value: 'stats',
     icon: 'chart-line',
     content: <InspectStatsTab data={queryResponse!} timeZone={queryResponse?.request?.timezone as TimeZone} />,
-  };
-
-  const jsonTab: TabConfig = {
-    label: 'JSON',
-    value: 'json',
-    icon: 'brackets-curly',
-    content: <InspectJSONTab data={queryResponse} onClose={onClose} />,
   };
 
   const dataTab: TabConfig = {
@@ -60,21 +55,61 @@ export function ExploreQueryInspector(props: Props) {
     content: <QueryInspector data={dataFrames} onRefreshQuery={() => props.runQueries(props.exploreId)} />,
   };
 
-  const tabs = [statsTab, queryTab, jsonTab, dataTab];
-  if (error) {
-    const errorTab: TabConfig = {
-      label: 'Error',
-      value: 'error',
-      icon: 'exclamation-triangle',
-      content: <InspectErrorTab error={error} />,
+  // const tabs = [statsTab, queryTab, jsonTab, dataTab];
+  // if (error) {
+  //   const errorTab: TabConfig = {
+  //     label: 'Error',
+  //     value: 'error',
+  //     icon: 'exclamation-triangle',
+  //     content: <InspectErrorTab error={error} />,
+  //   };
+  //   tabs.push(errorTab);
+  // }
+  // return (
+  //   <ExploreDrawer width={width} onResize={() => {}}>
+  //     <TabbedContainer tabs={tabs} onClose={onClose} closeIconTooltip="Close query inspector" />
+  //   </ExploreDrawer>
+  // );
+  if (InsensConfig.edit.panel_json) {
+    const jsonTab: TabConfig = {
+      label: 'JSON',
+      value: 'json',
+      icon: 'brackets-curly',
+      content: <InspectJSONTab data={queryResponse} onClose={onClose} />,
     };
-    tabs.push(errorTab);
+
+    const tabs = [statsTab, queryTab, jsonTab, dataTab];
+    if (error) {
+      const errorTab: TabConfig = {
+        label: 'Error',
+        value: 'error',
+        icon: 'exclamation-triangle',
+        content: <InspectErrorTab error={error} />,
+      };
+      tabs.push(errorTab);
+    }
+    return (
+      <ExploreDrawer width={width} onResize={() => {}}>
+        <TabbedContainer tabs={tabs} onClose={onClose} closeIconTooltip="Close query inspector" />
+      </ExploreDrawer>
+    );
+  } else {
+    const tabs = [statsTab, queryTab, dataTab];
+    if (error) {
+      const errorTab: TabConfig = {
+        label: 'Error',
+        value: 'error',
+        icon: 'exclamation-triangle',
+        content: <InspectErrorTab error={error} />,
+      };
+      tabs.push(errorTab);
+    }
+    return (
+      <ExploreDrawer width={width} onResize={() => {}}>
+        <TabbedContainer tabs={tabs} onClose={onClose} closeIconTooltip="Close query inspector" />
+      </ExploreDrawer>
+    );
   }
-  return (
-    <ExploreDrawer width={width} onResize={() => {}}>
-      <TabbedContainer tabs={tabs} onClose={onClose} closeIconTooltip="Close query inspector" />
-    </ExploreDrawer>
-  );
 }
 
 function mapStateToProps(state: StoreState, { exploreId }: { exploreId: ExploreId }) {
