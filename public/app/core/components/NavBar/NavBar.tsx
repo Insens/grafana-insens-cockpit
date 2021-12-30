@@ -126,8 +126,9 @@ const getStyles = (theme: GrafanaTheme2) => ({
     position: fixed;
     z-index: ${theme.zIndex.sidemenu};
 
+    // Insens: coloring of navbar background
     ${theme.breakpoints.up('md')} {
-      background: ${theme.colors.background.primary};
+      background: #004688;
       border-right: 1px solid ${theme.components.panel.borderColor};
       padding: 0 0 ${theme.spacing(1)} 0;
       position: relative;

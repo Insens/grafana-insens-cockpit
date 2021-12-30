@@ -209,7 +209,7 @@ func (hs *HTTPServer) getNavTree(c *models.ReqContext, hasEditPerm bool) ([]*dto
 	}
 
 	_, uaIsDisabledForOrg := hs.Cfg.UnifiedAlerting.DisabledOrgs[c.OrgId]
-	uaVisibleForOrg := hs.Cfg.UnifiedAlerting.IsEnabled() && !uaIsDisabledForOrg
+	uaVisibleForOrg := hs.Cfg.UnifiedAlerting.IsEnabled() && !uaIsDisabledForOrg && c.OrgRole == models.ROLE_ADMIN
 
 	if setting.AlertingEnabled != nil && c.OrgRole == models.ROLE_ADMIN && *setting.AlertingEnabled || uaVisibleForOrg {
 		alertChildNavs := hs.buildAlertNavLinks(c, uaVisibleForOrg)
@@ -377,27 +377,31 @@ func (hs *HTTPServer) buildDashboardNavLinks(c *models.ReqContext, hasEditPerm b
 			Text: "Divider", Divider: true, Id: "divider", HideFromTabs: true,
 		})
 	}
-	dashboardChildNavs = append(dashboardChildNavs, &dtos.NavLink{
-		Text: "Browse", Id: "manage-dashboards", Url: hs.Cfg.AppSubURL + "/dashboards", Icon: "sitemap",
-	})
-	dashboardChildNavs = append(dashboardChildNavs, &dtos.NavLink{
-		Text: "Playlists", Id: "playlists", Url: hs.Cfg.AppSubURL + "/playlists", Icon: "presentation-play",
-	})
 
-	if c.IsSignedIn {
+	// Insens modification: only see additional menu items if admin or editor
+	if c.OrgRole == models.ROLE_ADMIN || c.OrgRole == models.ROLE_EDITOR {
 		dashboardChildNavs = append(dashboardChildNavs, &dtos.NavLink{
-			Text: "Snapshots",
-			Id:   "snapshots",
-			Url:  hs.Cfg.AppSubURL + "/dashboard/snapshots",
-			Icon: "camera",
+			Text: "Browse", Id: "manage-dashboards", Url: hs.Cfg.AppSubURL + "/dashboards", Icon: "sitemap",
+		})
+		dashboardChildNavs = append(dashboardChildNavs, &dtos.NavLink{
+			Text: "Playlists", Id: "playlists", Url: hs.Cfg.AppSubURL + "/playlists", Icon: "presentation-play",
 		})
 
-		dashboardChildNavs = append(dashboardChildNavs, &dtos.NavLink{
-			Text: "Library panels",
-			Id:   "library-panels",
-			Url:  hs.Cfg.AppSubURL + "/library-panels",
-			Icon: "library-panel",
-		})
+		if c.IsSignedIn {
+			dashboardChildNavs = append(dashboardChildNavs, &dtos.NavLink{
+				Text: "Snapshots",
+				Id:   "snapshots",
+				Url:  hs.Cfg.AppSubURL + "/dashboard/snapshots",
+				Icon: "camera",
+			})
+
+			dashboardChildNavs = append(dashboardChildNavs, &dtos.NavLink{
+				Text: "Library panels",
+				Id:   "library-panels",
+				Url:  hs.Cfg.AppSubURL + "/library-panels",
+				Icon: "library-panel",
+			})
+		}
 	}
 
 	if hasEditPerm && hs.Cfg.IsNewNavigationEnabled() {

@@ -26,7 +26,8 @@ export function NavBarItemMenuItem({ item, state, onNavigate }: NavBarItemMenuIt
   const [isFocused, setFocused] = useState(false);
   const { focusProps } = useFocus({ onFocusChange: setFocused, isDisabled });
   const theme = useTheme2();
-  const styles = getStyles(theme, isFocused);
+  const isSection = item.value.menuItemType === 'section';
+  const styles = getStyles(theme, isFocused, isSection);
   const onAction = () => {
     onNavigate(item.value);
     onClose();
@@ -52,16 +53,27 @@ export function NavBarItemMenuItem({ item, state, onNavigate }: NavBarItemMenuIt
   );
 }
 
-function getStyles(theme: GrafanaTheme2, isFocused: boolean) {
+function getStyles(theme: GrafanaTheme2, isFocused: boolean, isSection: boolean) {
+  let backgroundColor = 'transparent';
+  // Does not seem to do shit
+  let textColor = theme.colors.text.primary;
+  if (isSection) {
+    // Insens coloring of menu item header background
+    backgroundColor = '#004688';
+    textColor = '#e2e2e2';
+  } else if (isFocused) {
+    backgroundColor = theme.colors.action.hover;
+  }
+
   return {
     menuItem: css`
-      background-color: ${isFocused ? theme.colors.action.hover : 'transparent'};
-      color: ${isFocused ? 'white' : theme.colors.text.primary};
+      background-color: ${backgroundColor};
+      color: ${textColor};
 
       &:focus-visible {
-        background-color: ${theme.colors.action.hover};
+        background-color: ${backgroundColor};
         box-shadow: none;
-        color: ${theme.colors.text.primary};
+        color: ${textColor};
         outline: 2px solid ${theme.colors.primary.main};
         // Need to add condition, header is 0, otherwise -2
         outline-offset: -0px;

@@ -122,9 +122,9 @@ const getStyles = (
   reverseMenuDirection?: boolean
 ) => ({
   ...getNavBarItemWithoutMenuStyles(theme, isActive),
+  // Insens coloring of navbar header title
   header: css`
-    background-color: ${theme.colors.background.secondary};
-    color: ${theme.colors.text.primary};
+    color: #e2e2e2;
     height: ${theme.components.sidemenu.width - (adjustHeightForBorder ? 2 : 1)}px;
     font-size: ${theme.typography.h4.fontSize};
     font-weight: ${theme.typography.h4.fontWeight};

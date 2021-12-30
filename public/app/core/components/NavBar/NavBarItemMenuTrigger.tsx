@@ -205,10 +205,11 @@ const getStyles = (theme: GrafanaTheme2, isActive?: boolean) => ({
       transition: none;
     }
   `,
+  // Insens: coloring of navbar icons
   icon: css`
     height: 100%;
     width: 100%;
-
+    color: #e2e2e2;
     img {
       border-radius: 50%;
       height: ${theme.spacing(3)};
