@@ -373,16 +373,17 @@ func (hs *HTTPServer) buildDashboardNavLinks(c *models.ReqContext, hasEditPerm b
 		dashboardChildNavs = append(dashboardChildNavs, &dtos.NavLink{
 			Text: "Home", Id: "home", Url: hs.Cfg.AppSubURL + "/", Icon: "home-alt", HideFromTabs: true,
 		})
-		dashboardChildNavs = append(dashboardChildNavs, &dtos.NavLink{
-			Text: "Divider", Divider: true, Id: "divider", HideFromTabs: true,
-		})
+		// dashboardChildNavs = append(dashboardChildNavs, &dtos.NavLink{
+		// 	Text: "Divider", Divider: true, Id: "divider", HideFromTabs: true,
+		// })
 	}
+
+	dashboardChildNavs = append(dashboardChildNavs, &dtos.NavLink{
+		Text: "Browse", Id: "manage-dashboards", Url: hs.Cfg.AppSubURL + "/dashboards", Icon: "sitemap",
+	})
 
 	// Insens modification: only see additional menu items if admin or editor
 	if c.OrgRole == models.ROLE_ADMIN || c.OrgRole == models.ROLE_EDITOR {
-		dashboardChildNavs = append(dashboardChildNavs, &dtos.NavLink{
-			Text: "Browse", Id: "manage-dashboards", Url: hs.Cfg.AppSubURL + "/dashboards", Icon: "sitemap",
-		})
 		dashboardChildNavs = append(dashboardChildNavs, &dtos.NavLink{
 			Text: "Playlists", Id: "playlists", Url: hs.Cfg.AppSubURL + "/playlists", Icon: "presentation-play",
 		})

@@ -127,7 +127,7 @@ export class SharedPreferences extends PureComponent<Props, State> {
 
   render() {
     const { theme, timezone, weekStart, homeDashboardId, dashboards } = this.state;
-    const { disabled } = this.props;
+    const { disabled, resourceUri } = this.props;
     const styles = getStyles();
 
     return (
@@ -135,14 +135,15 @@ export class SharedPreferences extends PureComponent<Props, State> {
         {() => {
           return (
             <FieldSet label="Preferences" disabled={disabled}>
-              <Field label="UI Theme">
-                <RadioButtonGroup
-                  options={themes}
-                  value={themes.find((item) => item.value === theme)?.value}
-                  onChange={this.onThemeChanged}
-                />
-              </Field>
-
+              {resourceUri !== 'user' && (
+                <Field label="UI Theme">
+                  <RadioButtonGroup
+                    options={themes}
+                    value={themes.find((item) => item.value === theme)?.value}
+                    onChange={this.onThemeChanged}
+                  />
+                </Field>
+              )}
               <Field
                 label={
                   <Label htmlFor="home-dashboard-select">

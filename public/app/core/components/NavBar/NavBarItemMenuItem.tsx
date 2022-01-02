@@ -74,7 +74,7 @@ function getStyles(theme: GrafanaTheme2, isFocused: boolean, isSection: boolean)
         background-color: ${backgroundColor};
         box-shadow: none;
         color: ${textColor};
-        outline: 2px solid ${theme.colors.primary.main};
+        outline: 1px solid ${theme.colors.primary.main};
         // Need to add condition, header is 0, otherwise -2
         outline-offset: -0px;
         transition: none;
