@@ -347,7 +347,7 @@ func (hs *HTTPServer) getNavTree(c *models.ReqContext, hasEditPerm bool) ([]*dto
 	}
 
 	if setting.AddHelpMenuToBottomNav {
-		helpVersion := fmt.Sprintf(`%s v%s (%s)`, setting.ApplicationName, setting.BuildVersion, setting.BuildCommit)
+		helpVersion := fmt.Sprintf(`%s v%s`, setting.ApplicationName, setting.CockpitVersion)
 		if hs.Cfg.AnonymousHideVersion && !c.IsSignedIn {
 			helpVersion = setting.ApplicationName
 		}

@@ -5,6 +5,9 @@
   "error": "Please try reloading the page.",
   "error_help": "If the error persists, contact an Insens administrator.",
 
+  "contact_url": "https://insens.eu/en/contact/",
+  "source_code_url": "https://github.com/Insens/grafana-insens-cockpit",
+
   "login": {
     "title": "Welcome to Insens Cockpit",
     "slogans": ["Your customized cockpit according to your needs provided by Insens."],

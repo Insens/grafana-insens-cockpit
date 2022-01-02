@@ -2,6 +2,8 @@ import React, { FC } from 'react';
 import config from 'app/core/config';
 //import { Icon, IconName } from '@grafana/ui';
 
+const InsensConfig = require('insens_config.json');
+
 export interface FooterLink {
   text: string;
   icon?: string;
@@ -11,22 +13,22 @@ export interface FooterLink {
 
 export let getFooterLinks = (): FooterLink[] => {
   return [
-    {
-      text: 'Documentation',
-      icon: 'document-info',
-      url: 'https://grafana.com/docs/grafana/latest/?utm_source=grafana_footer',
-      target: '_blank',
-    },
+    // {
+    //   text: 'Documentation',
+    //   icon: 'document-info',
+    //   url: 'https://grafana.com/docs/grafana/latest/?utm_source=grafana_footer',
+    //   target: '_blank',
+    // },
     {
       text: 'Support',
       icon: 'question-circle',
-      url: 'https://grafana.com/products/enterprise/?utm_source=grafana_footer',
+      url: InsensConfig.contact_url,
       target: '_blank',
     },
     {
-      text: 'Community',
-      icon: 'comments-alt',
-      url: 'https://community.grafana.com/?utm_source=grafana_footer',
+      text: 'License',
+      icon: 'book-open',
+      url: InsensConfig.source_code_url,
       target: '_blank',
     },
   ];

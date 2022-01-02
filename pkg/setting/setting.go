@@ -45,7 +45,7 @@ const (
 	Dev              = "development"
 	Prod             = "production"
 	Test             = "test"
-	ApplicationName  = "Grafana"
+	ApplicationName  = "Insens Cockpit"
 )
 
 // This constant corresponds to the default value for ldap_sync_ttl in .ini files
@@ -179,6 +179,7 @@ var (
 	// Insens
 	AddHelpMenuToBottomNav bool
 	AppTitle               string
+	CockpitVersion         string
 )
 
 // AddChangePasswordLink returns if login form is disabled or not since
@@ -1031,7 +1032,8 @@ func (cfg *Cfg) Load(args CommandLineArgs) error {
 
 	// Insens Backend config options
 	AddHelpMenuToBottomNav = iniFile.Section("insens").Key("add_help_menu_to_nav").MustBool(true)
-	AppTitle = iniFile.Section("insens").Key("app_title").MustString("Grafana")
+	AppTitle = iniFile.Section("insens").Key("app_title").MustString("Insens Cockpit")
+	CockpitVersion = iniFile.Section("insens").Key("cockpit_version").MustString("1.0.0")
 
 	geomapSection := iniFile.Section("geomap")
 	basemapJSON := valueAsString(geomapSection, "default_baselayer_config", "")
