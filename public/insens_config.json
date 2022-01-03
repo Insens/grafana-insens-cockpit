@@ -13,7 +13,7 @@
     "slogans": ["Your customized cockpit according to your needs provided by Insens."],
 
     "use_default_background": true,
-    "login_form_box_color": "rgba(46, 49, 49, 0.56)",
+    "login_form_box_color": "rgba(255, 255, 255, 0.9)",
 
     "background_dark": "public/img/insens/font.jpg",
     "background_light": "public/img/insens/font.jpg"
